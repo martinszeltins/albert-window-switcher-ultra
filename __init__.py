@@ -20,10 +20,10 @@ defaultIconPath = os.path.dirname(__file__) + "/icon.png"
 isCacheTimerActive = False
 cachedResults = []
 
-def clearCachedResultsAfterThirtySeconds():
+def clearCachedResultsAfterTenSeconds():
     global cachedResults
     global isCacheTimerActive
-    time.sleep(30)
+    time.sleep(10)
     cachedResults = []
     isCacheTimerActive = False
 
@@ -120,11 +120,11 @@ def getOpenWindows(query):
             opened_windows.append(item)
             if not query_clean: cachedResults.append(item)
 
-    # Start a timer that will clear the cached results after 30 seconds
+    # Start a timer that will clear the cached results after 10 seconds
     # It also makes sure the timer is not running already.
     if "thread" not in globals() or not thread.is_alive():
         if not isCacheTimerActive:
-            thread = threading.Thread(target=clearCachedResultsAfterThirtySeconds)
+            thread = threading.Thread(target=clearCachedResultsAfterTenSeconds)
             thread.start()
             isCacheTimerActive = True
 
